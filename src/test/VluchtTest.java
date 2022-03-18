@@ -110,6 +110,78 @@ public class VluchtTest {
 	}
 
 	/**
+	 * Business rule 2:
+	 * De vertrektijd en aankomsttijd moeten geldig zijn en in de toekomst liggen.
+	 */
+
+	@Test
+	public void testVertrektijdOngeldig(){
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		vertrektijd.set(2025, 9, 31, 24, 00, 0);
+		try{
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+	}
+	@Test
+	public void testAankomsttijdOngeldig(){
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		vertrektijd.set(2025, 9, 30, 24, 00, 0);
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(2025, 9, 30, 24, 01, 0);
+		try{
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+	}
+	@Test
+	public void testVertrektijdAankomsttijdBeidenGeldig(){
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		vertrektijd.set(2025, 9, 30, 12, 00, 0);
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(2025, 9, 30, 12, 01, 0);
+		try{
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+	}
+	@Test
+	public void testVertrektijdVerlopen(){
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		vertrektijd.set(Calendar.MINUTE, vertrektijd.get(Calendar.MINUTE)-1);
+		try{
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+	}
+
+	/**
 	 * Business rule 4:
 	 * Een vliegtuig kan maar voor één vlucht tegelijk gebruikt worden.
 	 */
