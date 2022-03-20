@@ -305,6 +305,24 @@ public class VluchtTest {
 	 * Business rule 8 van Thomas
 	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
 	 */
+	@Test
+	public void testVertrekTijdEenSecondeNaHuidigeTijd() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
  	/**
 	Twee nieuwe testmethoden Nena
