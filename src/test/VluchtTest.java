@@ -192,6 +192,102 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
+	/**
+	 * Test case 7 van Thomas
+	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
+	 */
+	@Test
+	public void testVertrektijdEnAankomstTijdInVerleden() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 2 of 1 van af halen
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-2), LocalDate.now().atStartOfDay().getSecond());
+		System.out.println(vertrektijd);
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-1), LocalDate.now().atStartOfDay().getSecond());
+		System.out.println(aankomsttijd);
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			System.out.println(vt2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	/**
+	 * Test case 8 van Thomas
+	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
+	 */
+	@Test
+	public void testVertrekTijdEenSecondeNaHuidigeTijd() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	/**
+	 * Business rule 3:
+	 * Een vlucht mag niet eerder vertrekken dan dat deze aankomt.
+	 */
+	/**
+	 * Test case 9 van Thomas
+	 * de vertrektijd is in deze later dan de aankomsttijd, we verwachten een exception
+	 */
+	@Test
+	public void testVertrekTijdLaterDanAankomstTijd() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de vertrektijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	/**
+	 * Test case 10 van Thomas
+	 * de aankomsttijd is in deze later dan de vertrektijd, we verwachten geen exception
+	 */
+	@Test
+	public void testVertrekTijd1MinuutVoorAankomstTtijd() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
 	/**
 	 * Business rule 4:
@@ -284,98 +380,8 @@ public class VluchtTest {
 		}
 	}
 
-	/**
-	 * Business rule 7 van Thomas
-	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
-	 */
-	@Test
-	public void testVertrektijdEnAankomstTijdInVerleden() {
-		Vlucht vlucht = new Vlucht();
-		Calendar vertrektijd = Calendar.getInstance();
-		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 2 of 1 van af halen
-		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-2), LocalDate.now().atStartOfDay().getSecond());
-		System.out.println(vertrektijd);
-		Calendar aankomsttijd = Calendar.getInstance();
-		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-1), LocalDate.now().atStartOfDay().getSecond());
-		System.out.println(aankomsttijd);
-		try {
-			vlucht.zetVliegtuig(vt2);
-			vlucht.zetVertrekpunt(lh3);
-			vlucht.zetBestemming(lh1);
-			vlucht.zetVertrekTijd(vertrektijd);
-			vlucht.zetAankomstTijd(aankomsttijd);
-			System.out.println(vt2);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-	/**
-	 * Business rule 8 van Thomas
-	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
-	 */
-	@Test
-	public void testVertrekTijdEenSecondeNaHuidigeTijd() {
-		Vlucht vlucht = new Vlucht();
-		Calendar vertrektijd = Calendar.getInstance();
-		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
-		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
-		Calendar aankomsttijd = Calendar.getInstance();
-		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
-		try {
-			vlucht.zetVliegtuig(vt2);
-			vlucht.zetVertrekpunt(lh3);
-			vlucht.zetBestemming(lh1);
-			vlucht.zetVertrekTijd(vertrektijd);
-			vlucht.zetAankomstTijd(aankomsttijd);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-	/**
-	 * Business rule 9 van Thomas
-	 * de vertrektijd is in deze later dan de aankomsttijd, we verwachten een exception
-	 */
-	@Test
-	public void testVertrekTijdLaterDanAankomstTijd() {
-		Vlucht vlucht = new Vlucht();
-		Calendar vertrektijd = Calendar.getInstance();
-		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de vertrektijd
-		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
-		Calendar aankomsttijd = Calendar.getInstance();
-		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
-		try {
-			vlucht.zetVliegtuig(vt2);
-			vlucht.zetVertrekpunt(lh3);
-			vlucht.zetBestemming(lh1);
-			vlucht.zetVertrekTijd(vertrektijd);
-			vlucht.zetAankomstTijd(aankomsttijd);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
 
-	/**
-	 * Business rule 10 van Thomas
-	 * de aankomsttijd is in deze later dan de vertrektijd, we verwachten geen exception
-	 */
-	@Test
-	public void testVertrekTijd1MinuutVoorAankomstTtijd() {
-		Vlucht vlucht = new Vlucht();
-		Calendar vertrektijd = Calendar.getInstance();
-		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
-		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
-		Calendar aankomsttijd = Calendar.getInstance();
-		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
-		try {
-			vlucht.zetVliegtuig(vt2);
-			vlucht.zetVertrekpunt(lh3);
-			vlucht.zetBestemming(lh1);
-			vlucht.zetVertrekTijd(vertrektijd);
-			vlucht.zetAankomstTijd(aankomsttijd);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+
 	/**buisiness rule 15-17 gemaaktt door Thomas voor als Mart in tijdsnood komt
 	 */
 	@Test
