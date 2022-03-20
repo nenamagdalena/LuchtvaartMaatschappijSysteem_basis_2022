@@ -377,8 +377,60 @@ public class VluchtTest {
 		}
 	}
 
+	/**buisiness rule 18 gemaaktt door Thomas
+	 */
+	@Test
+	public void testVertrekTijdNull() {
+		Vlucht vlucht = new Vlucht();
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
+	@Test
+	public void testaankomsttijdTijdNull() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
+	@Test
+	public void testAllesGoedIngevuld() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 	/**
    Twee nieuwe testmethoden Nena
      **/
