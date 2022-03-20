@@ -382,7 +382,9 @@ public class VluchtTest {
 
 
 
-	/**buisiness rule 15-17 gemaaktt door Thomas voor als Mart in tijdsnood komt
+	/**
+	 * Business rule 5:
+	 * bij het bewaren moeten alle gegevens ingevuld zijn
 	 */
 	@Test
 	public void testBewaarZonderVliegtuig() {
@@ -403,7 +405,7 @@ public class VluchtTest {
 		}
 	}
 	@Test
-		public void testBewaarZonderVertrekpunt() {
+	public void testBewaarZonderVertrekpunt() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -439,8 +441,7 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-	/**buisiness rule 18-20 gemaaktt door Thomas voor als Dean het niet lukt
-	 */
+
 	@Test
 	public void testBewaarZonderVertrekTijd() {
 		Vlucht vlucht = new Vlucht();
