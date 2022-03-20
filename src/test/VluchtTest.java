@@ -101,7 +101,6 @@ public class VluchtTest {
 			assertFalse(bestemming.equals(lh1));
 		}
 	}
-
 	@Test
 	public void testBestemmingMagNietGelijkZijnAanVertrek_True() {
 		Vlucht vlucht = new Vlucht();
@@ -192,10 +191,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-	/**
-	 * Test case 7 van Thomas
-	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
-	 */
 	@Test
 	public void testVertrektijdEnAankomstTijdInVerleden() {
 		Vlucht vlucht = new Vlucht();
@@ -217,10 +212,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-	/**
-	 * Test case 8 van Thomas
-	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
-	 */
 	@Test
 	public void testVertrekTijdEenSecondeNaHuidigeTijd() {
 		Vlucht vlucht = new Vlucht();
@@ -239,14 +230,12 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
+
 	/**
 	 * Business rule 3:
 	 * Een vlucht mag niet eerder vertrekken dan dat deze aankomt.
 	 */
-	/**
-	 * Test case 9 van Thomas
-	 * de vertrektijd is in deze later dan de aankomsttijd, we verwachten een exception
-	 */
+
 	@Test
 	public void testVertrekTijdLaterDanAankomstTijd() {
 		Vlucht vlucht = new Vlucht();
@@ -265,11 +254,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
-	/**
-	 * Test case 10 van Thomas
-	 * de aankomsttijd is in deze later dan de vertrektijd, we verwachten geen exception
-	 */
 	@Test
 	public void testVertrekTijd1MinuutVoorAankomstTtijd() {
 		Vlucht vlucht = new Vlucht();
@@ -314,7 +298,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testAankomsttijdValtOnderAndereVlucht() {
 		Vlucht vlucht = new Vlucht();
@@ -335,7 +318,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testVertrektijdEnAankomstTijdValtOnderAndereVlucht() {
 		Vlucht vlucht = new Vlucht();
@@ -358,7 +340,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testVertrektijdEnAankomstTijdValtNietOnderAndereVlucht() {
 		Vlucht vlucht = new Vlucht();
@@ -379,8 +360,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
-
 
 	/**
 	 * Business rule 5:
@@ -422,7 +401,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testBewaarZonderBestemming() {
 		Vlucht vlucht = new Vlucht();
@@ -441,7 +419,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testBewaarZonderVertrekTijd() {
 		Vlucht vlucht = new Vlucht();
@@ -457,7 +434,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
 	@Test
 	public void testBewaarZonderAankomstTijd() {
 		Vlucht vlucht = new Vlucht();
@@ -476,8 +452,6 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
-
 	@Test
 	public void testAllesGoedIngevuld() {
 		Vlucht vlucht = new Vlucht();
