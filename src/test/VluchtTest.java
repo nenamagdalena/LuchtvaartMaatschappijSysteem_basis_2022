@@ -8,9 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
-import java.util.Calendar;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.io.*;
+import java.lang.Thread;
 public class VluchtTest {
 
 	static LuchtvaartMaatschappij lvm ;
@@ -271,10 +275,41 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
+
+	/**
+	 * Business rule 7 van Thomas
+	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
+	 */
+	@Test
+	public void testVertrektijdEnAankomstTijdInVerleden() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 2 of 1 van af halen
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-2), LocalDate.now().atStartOfDay().getSecond());
+		System.out.println(vertrektijd);
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-1), LocalDate.now().atStartOfDay().getSecond());
+		System.out.println(aankomsttijd);
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			System.out.println(vt2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	/**
+	 * Business rule 8 van Thomas
+	 * de vertrektijden moeten beide in het verleden zitten emt een minuut verschil, verwachte resultaat is een exception
+	 */
+
  	/**
 	Twee nieuwe testmethoden Nena
   	**/
-
+	/**
 	@Test
 	public void testVliegtuigHeeftGeenCapaciteit() {
 		Vlucht vlucht = new Vlucht();
@@ -300,6 +335,7 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
+	**/
 
 
 
