@@ -138,6 +138,8 @@ public class Vlucht
    public void bewaar() throws VluchtException {
 	   if(vliegtuig == null)
 		   throw new VluchtException("Geen geldige vliegtuig.");
+	   else if(vertrekpunt == null)
+		   throw new VluchtException("Geen geldig vertrekpunt.");
    		else if(bestemming == null)
    			throw new VluchtException("Geen geldige bestemming.");
 		else if(aankomstTijd == null)

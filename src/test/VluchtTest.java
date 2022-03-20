@@ -376,11 +376,67 @@ public class VluchtTest {
 			System.out.println(e);
 		}
 	}
-
-	/**buisiness rule 18 gemaaktt door Thomas
+	/**buisiness rule 15-17 gemaaktt door Thomas voor als Mart in tijdsnood komt
 	 */
 	@Test
-	public void testVertrekTijdNull() {
+	public void testBewaarZonderVliegtuig() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute() + 1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	@Test
+		public void testBewaarZonderVertrekpunt() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetBestemming(lh1);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	@Test
+	public void testBewaarZonderBestemming() {
+		Vlucht vlucht = new Vlucht();
+		Calendar vertrektijd = Calendar.getInstance();
+		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
+		try {
+			vlucht.zetVliegtuig(vt2);
+			vlucht.zetVertrekpunt(lh3);
+			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
+			vlucht.bewaar();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	/**buisiness rule 18-20 gemaaktt door Thomas voor als Dean het niet lukt
+	 */
+	@Test
+	public void testBewaarZonderVertrekTijd() {
 		Vlucht vlucht = new Vlucht();
 		Calendar aankomsttijd = Calendar.getInstance();
 		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
@@ -396,21 +452,24 @@ public class VluchtTest {
 	}
 
 	@Test
-	public void testaankomsttijdTijdNull() {
+	public void testBewaarZonderAankomstTijd() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
 		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()), LocalDate.now().atStartOfDay().getSecond());
+		Calendar aankomsttijd = Calendar.getInstance();
+		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
 		try {
-			vlucht.zetVliegtuig(vt2);
 			vlucht.zetVertrekpunt(lh3);
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
+			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
+
 
 	@Test
 	public void testAllesGoedIngevuld() {
