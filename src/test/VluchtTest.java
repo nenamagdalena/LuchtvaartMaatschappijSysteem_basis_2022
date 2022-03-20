@@ -9,6 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Thom: test 3 t/m 6
+ * Thomas: test 7 t/m 10
+ * Nena: test 11 t/m 14
+ * Mart: test 15 t/m 17
+ * Dean: test 18 t/m 20
+ */
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
