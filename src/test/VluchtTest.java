@@ -6,6 +6,8 @@ import static main.domeinLaag.Vlucht.isBezet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -84,39 +86,32 @@ public class VluchtTest {
 	 */
 	
 	@Test
-	public void testBestemmingMagNietGelijkZijnAanVertrek_False() {
+	public void testBestemmingMagNietGelijkZijnAanVertrekException_True() {
 		Vlucht vlucht = new Vlucht();
 		try {
 			vlucht.zetVliegtuig(vt1);
 			vlucht.zetVertrekpunt(lh1);
-			Luchthaven bestemming = vlucht.getBestemming();
-			assertTrue(bestemming == null);
 			vlucht.zetBestemming(lh1);
 			// De test zou niet verder mogen komen: er moet al een exception gethrowd zijn.
-			bestemming = vlucht.getBestemming();
-			assertFalse(bestemming.equals(lh1));
+			assertFalse(vlucht.getBestemming() == null);
 		}
 		catch(IllegalArgumentException e) {
-			Luchthaven bestemming = vlucht.getBestemming();
-			assertFalse(bestemming.equals(lh1));
+			System.out.println(e);
+			assertTrue(vlucht.getBestemming() == null);
 		}
 	}
 	@Test
-	public void testBestemmingMagNietGelijkZijnAanVertrek_True() {
+	public void testBestemmingMagNietGelijkZijnAanVertrekException_False() {
 		Vlucht vlucht = new Vlucht();
-		Luchthaven bestemming;
 		try {
 			vlucht.zetVliegtuig(vt1);
 			vlucht.zetVertrekpunt(lh2);
-			bestemming = vlucht.getBestemming();
-			assertTrue(bestemming == null);
 			vlucht.zetBestemming(lh1);
-			bestemming = vlucht.getBestemming();
-			assertTrue(bestemming.equals(lh1));
+			assertFalse(vlucht.getBestemming() == null);
 		}
 		catch(IllegalArgumentException e) {
-			bestemming = vlucht.getBestemming();
-			assertTrue(bestemming.equals(lh1));
+			System.out.println(e);
+			assertTrue(vlucht.getBestemming() == null);
 		}
 	}
 
@@ -126,7 +121,7 @@ public class VluchtTest {
 	 */
 
 	@Test
-	public void testVertrektijdOngeldig(){
+	public void testVertrektijdOngeldigException_True(){
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		vertrektijd.set(2025, 9, 31, 24, 00, 0);
@@ -135,13 +130,15 @@ public class VluchtTest {
 			vlucht.zetVertrekpunt(lh3);
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
+			assertFalse(vlucht.getVertrekTijd() == null);
 		}
 		catch (Exception e){
 			System.out.println(e);
+			assertTrue(vlucht.getVertrekTijd() == null);
 		}
 	}
 	@Test
-	public void testAankomsttijdOngeldig(){
+	public void testAankomsttijdOngeldigException_True(){
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		vertrektijd.set(2025, 9, 30, 24, 00, 0);
@@ -153,13 +150,15 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
+			assertFalse(vlucht.getAankomstTijd() == null);
 		}
 		catch (Exception e){
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd() == null);
 		}
 	}
 	@Test
-	public void testVertrektijdAankomsttijdBeidenGeldig(){
+	public void testVertrektijdAankomsttijdGeldigException_False(){
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		vertrektijd.set(2025, 9, 30, 12, 00, 0);
@@ -171,49 +170,56 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
+			assertFalse(vlucht.getAankomstTijd() == null);
+			assertFalse(vlucht.getVertrekTijd() == null);
 		}
 		catch (Exception e){
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd() == null);
+			assertTrue(vlucht.getVertrekTijd() == null);
 		}
 	}
 	@Test
-	public void testVertrektijdVerlopen(){
+	public void testVertrektijdInVerledenException_True(){
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
-		vertrektijd.set(Calendar.MINUTE, vertrektijd.get(Calendar.MINUTE)-1);
+		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-1), LocalDate.now().atStartOfDay().getSecond());
 		try{
 			vlucht.zetVliegtuig(vt2);
 			vlucht.zetVertrekpunt(lh3);
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
+			assertFalse(vlucht.getVertrekTijd() == null);
 		}
 		catch (Exception e){
 			System.out.println(e);
+			assertTrue(vlucht.getVertrekTijd() == null);
 		}
 	}
 	@Test
-	public void testVertrektijdEnAankomstTijdInVerleden() {
+	public void testVertrektijdEnAankomstTijdInVerledenException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 2 of 1 van af halen
 		vertrektijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-2), LocalDate.now().atStartOfDay().getSecond());
-		System.out.println(vertrektijd);
 		Calendar aankomsttijd = Calendar.getInstance();
 		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()-1), LocalDate.now().atStartOfDay().getSecond());
-		System.out.println(aankomsttijd);
 		try {
 			vlucht.zetVliegtuig(vt2);
 			vlucht.zetVertrekpunt(lh3);
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
-			System.out.println(vt2);
+			assertFalse(vlucht.getVertrekTijd() == null);
+			assertFalse(vlucht.getAankomstTijd()== null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getVertrekTijd() == null);
+			assertTrue(vlucht.getAankomstTijd()== null);
 		}
 	}
 	@Test
-	public void testVertrekTijdEenSecondeNaHuidigeTijd() {
+	public void testVertrekTijdInToekomstException_False() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -226,8 +232,12 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
+			assertFalse(vlucht.getAankomstTijd() == null);
+			assertFalse(vlucht.getVertrekTijd() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd() == null);
+			assertTrue(vlucht.getVertrekTijd() == null);
 		}
 	}
 
@@ -237,7 +247,7 @@ public class VluchtTest {
 	 */
 
 	@Test
-	public void testVertrekTijdLaterDanAankomstTijd() {
+	public void testVertrekTijdLaterDanAankomstTijdException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de vertrektijd
@@ -250,12 +260,14 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
+			assertFalse(vlucht.getAankomstTijd()==null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd()==null);
 		}
 	}
 	@Test
-	public void testVertrekTijd1MinuutVoorAankomstTtijd() {
+	public void testVertrekTijdEerderDanAankomstTijdException_False() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -268,8 +280,10 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
+			assertFalse(vlucht.getAankomstTijd()==null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd()==null);
 		}
 	}
 
@@ -279,7 +293,7 @@ public class VluchtTest {
 	 */
 
 	@Test
-	public void testVertrektijdValtOnderAndereVlucht() {
+	public void testVertrektijdValtOnderAndereVluchtException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertr = Calendar.getInstance();
 		vertr.set(2025, 07, 01, 15, 35, 0);
@@ -292,14 +306,15 @@ public class VluchtTest {
 			vlucht.zetVertrekTijd(vertr);
 			vlucht.zetAankomstTijd(aank);
 
-			assertTrue(isBezet(vt2, vertr));
+			assertFalse(isBezet(vt2, vertr));
 
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(isBezet(vt2, vertr));
 		}
 	}
 	@Test
-	public void testAankomsttijdValtOnderAndereVlucht() {
+	public void testAankomsttijdValtOnderAndereVluchtException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertr = Calendar.getInstance();
 		vertr.set(2025, 07, 01, 11, 36, 0);
@@ -316,10 +331,11 @@ public class VluchtTest {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			assertFalse(isBezet(vt2, aank));
 		}
 	}
 	@Test
-	public void testVertrektijdEnAankomstTijdValtOnderAndereVlucht() {
+	public void testVertrektijdEnAankomstTijdValtOnderAndereVluchtException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertr = Calendar.getInstance();
 		vertr.set(2025, 07, 01, 12, 42, 0);
@@ -338,10 +354,11 @@ public class VluchtTest {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			assertFalse(isBezet(vt2, midden));
 		}
 	}
 	@Test
-	public void testVertrektijdEnAankomstTijdValtNietOnderAndereVlucht() {
+	public void testVertrektijdEnAankomstTijdValtNietOnderAndereVluchtException_False() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertr = Calendar.getInstance();
 		vertr.set(2025, 07, 01, 15, 37, 0);
@@ -358,6 +375,7 @@ public class VluchtTest {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(isBezet(vt2, vertr));
 		}
 	}
 
@@ -366,7 +384,7 @@ public class VluchtTest {
 	 * bij het bewaren moeten alle gegevens ingevuld zijn
 	 */
 	@Test
-	public void testBewaarZonderVliegtuig() {
+	public void testBewaarZonderVliegtuigException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -379,12 +397,14 @@ public class VluchtTest {
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getVliegtuig() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getVliegtuig() == null);
 		}
 	}
 	@Test
-	public void testBewaarZonderVertrekpunt() {
+	public void testBewaarZonderVertrekpuntException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -397,12 +417,14 @@ public class VluchtTest {
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getVertrekPunt() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getVertrekPunt() == null);
 		}
 	}
 	@Test
-	public void testBewaarZonderBestemming() {
+	public void testBewaarZonderBestemmingException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -415,12 +437,14 @@ public class VluchtTest {
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getBestemming() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getBestemming() == null);
 		}
 	}
 	@Test
-	public void testBewaarZonderVertrekTijd() {
+	public void testBewaarZonderVertrekTijdException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar aankomsttijd = Calendar.getInstance();
 		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
@@ -430,12 +454,14 @@ public class VluchtTest {
 			vlucht.zetBestemming(lh1);
 			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getVertrekTijd() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getVertrekTijd() == null);
 		}
 	}
 	@Test
-	public void testBewaarZonderAankomstTijd() {
+	public void testBewaarZonderAankomstTijdException_True() {
 		Vlucht vlucht = new Vlucht();
 		Calendar vertrektijd = Calendar.getInstance();
 		//we gebruiken Localdate.now om alle waarde in te vallen, de minute geeft een int als resultaat waar we 1 aan toevoegen voor de aankomsttijd
@@ -443,13 +469,15 @@ public class VluchtTest {
 		Calendar aankomsttijd = Calendar.getInstance();
 		aankomsttijd.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), LocalDate.now().atStartOfDay().getHour(), (LocalDate.now().atStartOfDay().getMinute()+1), LocalDate.now().atStartOfDay().getSecond());
 		try {
+			vlucht.zetVliegtuig(vt2);
 			vlucht.zetVertrekpunt(lh3);
 			vlucht.zetBestemming(lh1);
 			vlucht.zetVertrekTijd(vertrektijd);
-			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getAankomstTijd() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getAankomstTijd() == null);
 		}
 	}
 	@Test
@@ -467,42 +495,18 @@ public class VluchtTest {
 			vlucht.zetVertrekTijd(vertrektijd);
 			vlucht.zetAankomstTijd(aankomsttijd);
 			vlucht.bewaar();
+			assertFalse(vlucht.getVliegtuig() == null);
+			assertFalse(vlucht.getVertrekPunt() == null);
+			assertFalse(vlucht.getBestemming() == null);
+			assertFalse(vlucht.getVertrekTijd() == null);
+			assertFalse(vlucht.getAankomstTijd() == null);
 		} catch (Exception e) {
 			System.out.println(e);
+			assertTrue(vlucht.getVliegtuig() == null);
+			assertTrue(vlucht.getVertrekPunt() == null);
+			assertTrue(vlucht.getBestemming() == null);
+			assertTrue(vlucht.getVertrekTijd() == null);
+			assertTrue(vlucht.getAankomstTijd() == null);
 		}
 	}
-	/**
-   Twee nieuwe testmethoden Nena
-     **/
-	/**
-	@Test
-	public void testVliegtuigHeeftGeenCapaciteit() {
-		Vlucht vlucht = new Vlucht();
-		try {
-			vlucht.zetVliegtuig(vt3);
-
-			assertEquals(0, vt3.geefCapaciteit());
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	@Test
-	public void testVliegtuigHeeftGeenNaam() {
-		Vlucht vlucht = new Vlucht();
-		try {
-			vlucht.zetVliegtuig(vt3);
-
-			assertEquals(null, vt3.geefNaam());
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-	**/
-
-
-
-
 }
