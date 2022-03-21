@@ -72,6 +72,10 @@ public class MenuController implements Initializable {
             fxmlFileNaam = "OverzichtVluchten";
             useCaseTitle = "Overzicht Vluchten";
             startUseCase(fxmlFileNaam, useCaseTitle);
+        } else if (keuzeNr == 7){
+            fxmlFileNaam = "BoekVluchtEersteScherm";
+            useCaseTitle = "Boek Vlucht";
+            startUseCase(fxmlFileNaam, useCaseTitle);
         }
         textField.setText("");
         textField.requestFocus();
