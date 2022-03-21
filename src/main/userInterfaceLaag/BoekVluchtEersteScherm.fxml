@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="318.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="6.0" layoutY="97.0" prefHeight="174.0" prefWidth="458.0">
+        <columns>
+          <TableColumn prefWidth="143.9999327659607" text="Vertrekpunt" />
+          <TableColumn prefWidth="87.199951171875" text="Bestemming" />
+            <TableColumn minWidth="6.103515625E-5" prefWidth="90.40008544921875" text="Vertrektijd" />
+            <TableColumn prefWidth="60.800048828125" text="Business" />
+            <TableColumn prefWidth="59.20001220703125" text="Economy" />
+        </columns>
+      </TableView>
+      <Label layoutX="334.0" layoutY="78.0" text="Plaatsen beschikbaar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonSumbit" layoutX="208.0" layoutY="281.0" mnemonicParsing="false" text="Submit" />
+      <VBox layoutX="14.0" layoutY="13.0" prefHeight="72.0" prefWidth="236.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="188.0">
+               <children>
+                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="71.0" text="Vertrekpunt" />
+                  <ChoiceBox prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="188.0">
+               <children>
+                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="71.0" text="Bestemming" />
+                  <ChoiceBox prefWidth="150.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="242.0" layoutY="9.0" prefHeight="42.0" prefWidth="250.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="57.0" text="Datum" />
+            <DatePicker prefHeight="26.0" prefWidth="128.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

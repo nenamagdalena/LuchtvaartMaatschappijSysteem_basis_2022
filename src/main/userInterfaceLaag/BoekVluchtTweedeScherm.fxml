@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="36.0" layoutY="30.0" prefHeight="58.0" prefWidth="527.0">
+         <columns>
+            <TableColumn prefWidth="170.4000244140625" text="Vertrekpunt" />
+            <TableColumn prefWidth="147.20001220703125" text="Bestemming" />
+            <TableColumn minWidth="6.103515625E-5" prefWidth="79.99993896484375" text="Vertrektijd" />
+            <TableColumn prefWidth="60.0" text="Business" />
+            <TableColumn prefWidth="65.5999755859375" text="Economy" />
+         </columns>
+      </TableView>
+      <VBox alignment="CENTER" layoutX="35.0" layoutY="128.0" prefHeight="224.0" prefWidth="227.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="80.0" text="Voornaam" />
+                  <TextField alignment="CENTER" />
+               </children>
+            </HBox>
+            <Region prefHeight="29.0" prefWidth="94.0" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="80.0" text="Achternaam" />
+                  <TextField />
+               </children>
+            </HBox>
+            <Region layoutX="10.0" layoutY="57.0" prefHeight="29.0" prefWidth="94.0" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="80.0" text="Straat" />
+                  <TextField />
+               </children>
+            </HBox>
+            <Region layoutX="10.0" layoutY="97.0" prefHeight="29.0" prefWidth="94.0" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="80.0" text="Huisnummer" />
+                  <TextField />
+               </children>
+            </HBox>
+            <Region layoutX="10.0" layoutY="135.0" prefHeight="29.0" prefWidth="94.0" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="80.0" text="Woonplaats" />
+                  <TextField />
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="88.0" prefHeight="32.0" prefWidth="574.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="249.0" text="Klantgegevens:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="186.0" text="Aantal stoelen:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Beschikbaar:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="272.0" layoutY="121.0" prefHeight="231.0" prefWidth="306.0">
+         <children>
+            <VBox layoutY="-1.0" prefHeight="90.0" prefWidth="290.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="60.0" text="Economy" />
+                        <ChoiceBox prefWidth="150.0" />
+                        <Label prefHeight="18.0" prefWidth="25.0" />
+                        <TextField prefWidth="30.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="60.0" text="Business" />
+                        <ChoiceBox prefWidth="150.0" />
+                        <Label prefHeight="18.0" prefWidth="25.0" />
+                        <TextField prefWidth="30.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button layoutX="47.0" layoutY="205.0" mnemonicParsing="false" prefWidth="80.0" text="Book" />
+            <Button cancelButton="true" layoutX="162.0" layoutY="205.0" mnemonicParsing="false" prefWidth="80.0" text="Cancel">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
